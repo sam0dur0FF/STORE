@@ -8,4 +8,6 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Supplier)
 class SupplierAdmin(admin.ModelAdmin):
-    pass
+    ordering = ('name',)
+    list_display = ('name', 'contact_email', 'phone_number')
+    search_fields = ('name', 'contact_email', 'phone_number')
