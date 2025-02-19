@@ -1,26 +1,16 @@
 from django.contrib import admin
-from store_app.models import Category, Customer
+from store_app.models import Category, Supplier, Address, Order, Customer
 
 
-# Задание 3.1: Настройка модели Category в админке
-# Зарегистрируйте модель Category в админке с использованием декоратора @admin.register.
-# Создайте класс CategoryAdmin, чтобы настроить отображение модели в админке:
-# Установите отображение поля name в списке записей.
-# Добавьте возможность поиска по полю name.
-# Установите сортировку записей по полю name в алфавитном порядке.
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name',)
-    search_fields = ('name',)
-    ordering = ('name',)
+    list_display = (
+        'id',
+        'name',
+    )
 
-# Зарегистрируйте модель Customer в админке с использованием декоратора @admin.register.
-# Создайте класс CustomerAdmin, чтобы настроить отображение модели в админке:
-# Установите отображение полей first_name, last_name, email, phone_number, date_joined, deleted в списке записей.
-# Добавьте возможность поиска по полям first_name, last_name, email, phone_number.
-# Установите сортировку записей по полю date_joined в порядке от самых новых записей к самым старым.
-# Добавьте фильтрацию записей по полю deleted.Сделайте поле deleted редактируемым прямо в списке записей.
+
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'email', 'phone_number', 'date_joined', 'deleted')
@@ -31,4 +21,56 @@ class CustomerAdmin(admin.ModelAdmin):
 
 
 
+@admin.register(Supplier)
+class SupplierAdmin(admin.ModelAdmin):
+    ordering = (
+        'name',
+    )
+    list_display = (
+        'name',
+        'contact_email',
+        'phone_number',
+    )
+    search_fields = (
+        'name',
+        'contact_email',
+        'phone_number',
+    )
 
+
+@admin.register(Address)
+class AddressAdmin(admin.ModelAdmin):
+    list_display = (
+        'country',
+        'city',
+        'street',
+        'house',
+    )
+    search_fields = (
+        'country',
+        'city',
+        'street',
+        'house',
+    )
+    ordering = (
+        'country',
+        'city',
+        'street',
+    )
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'order_date',
+        'customer',
+    )
+    search_fields = (
+        'customer__first_name',
+        'customer__last_name',
+        'customer__email',
+    )
+    ordering = (
+        '-order_date',
+    )
