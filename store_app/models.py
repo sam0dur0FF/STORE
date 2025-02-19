@@ -24,18 +24,25 @@ class Supplier(models.Model):
         return self.name
 
 
-# Задание 2.3: Создание модели Product
-# Создайте модель Product с полями:
-# name (максимальная длина 100 символов).
-# category (внешний ключ на модель Category с поведением PROTECT при удалении и с названием обратной связи products).
-# supplier (внешний ключ на модель Supplier с поведением PROTECT при удалении и с названием обратной связи products).
-# price (десятичное поле с максимумом 10 цифр и 2 десятичными знаками).
-# quantity (положительное целое число).
-# article (максимальная длина 100 символов, уникальное значение, имеет пояснение "Unique string product id" и индекс).
-# available (логическое поле с значением по умолчанию True).
-# Реализуйте метод __str__, чтобы он возвращал значение поля name.
-# Добавьте мета-класс для модели:
-# Установите сортировку по полям category и quantity в алфавитном порядке.
+class Address(models.Model):
+    country = models.CharField(max_length=100)
+    city = models.CharField()
+    street = models.CharField()
+    house = models.CharField()
+
+    def __str__(self):
+        return f"{self.street}, {self.house}"
+
+class Order(models.Model):
+    order_date = models.DateTimeField(auto_now_add=True)
+    customer = models.ForeignKey('Customer', on_delete=models.PROTECT, related_name='orders')
+
+    def __str__(self):
+        return f"{self.id} by {self.customer}"
+
+    class Meta:
+        ordering = ['-order_date']
+        get_latest_by = ['order_date']
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
