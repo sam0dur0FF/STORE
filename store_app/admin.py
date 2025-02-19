@@ -1,5 +1,6 @@
 from django.contrib import admin
-from store_app.models import Category, Supplier, Address, Order
+from store_app.models import Category, Supplier, Address, Order, Customer
+
 
 
 @admin.register(Category)
@@ -8,6 +9,17 @@ class CategoryAdmin(admin.ModelAdmin):
         'id',
         'name',
     )
+
+
+@admin.register(Customer)
+class CustomerAdmin(admin.ModelAdmin):
+    list_display = ('first_name', 'last_name', 'email', 'phone_number', 'date_joined', 'deleted')
+    search_fields = ('first_name', 'last_name', 'email', 'phone_number')
+    ordering = ['-date_joined']
+    list_filter = ('deleted',)
+    list_editable = ('deleted',)
+
+
 
 @admin.register(Supplier)
 class SupplierAdmin(admin.ModelAdmin):
