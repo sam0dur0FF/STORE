@@ -19,9 +19,9 @@ class Customer(models.Model):
     last_name = models.CharField(max_length=50, unique=True)
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=15)
-    address_id = models.OneToOneField(Address, related_name='customer', on_delete=models.SET_NULL)
+    address_id = models.OneToOneField('Address', related_name='customer', on_delete=models.SET_NULL, null=True)
     date_joined = models.DateTimeField(auto_now_add=True)
-    deleted = models.Boolean(default=False)
+    deleted = models.BooleanField(default=False)
     deleted_at = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
