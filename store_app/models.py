@@ -13,11 +13,11 @@ class Category(models.Model):
 
 
 class Customer(models.Model):
-    first_name = models.CharField(max_length=50, unique=True)
-    last_name = models.CharField(max_length=50, unique=True)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
     email = models.EmailField(unique=True)
-    phone = models.CharField(max_length=15)
-    address_id = models.OneToOneField('Address', related_name='customer', on_delete=models.SET_NULL, null=True)
+    phone_number = models.CharField(max_length=15)
+    address = models.OneToOneField('Address', related_name='customer', on_delete=models.SET_NULL, null=True)
     date_joined = models.DateTimeField(auto_now_add=True)
     deleted = models.BooleanField(default=False)
     deleted_at = models.DateTimeField(null=True, blank=True)
@@ -77,3 +77,24 @@ class Product(models.Model):
 
     class Meta:
         ordering = ['category', "quantity"]
+
+
+class OrderItem(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.PROTECT, related_name='orders')
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
+    quantity = models.PositiveIntegerField()
+    price = models.DecimalField(decimal_places=2, max_digits=10)
+
+    def __str__(self):
+        return f'{self.product.name}: {self.quantity} x {self.price}'
+
+
+class ProductDetail(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='details')
+    description = models.TextField(null=True, blank=True)
+    manufacturing_date = models.DateField(null=True, blank=True)
+    expiration_date = models.DateField(null=True, blank=True)
+    weight = models.DecimalField(decimal_places=2, max_digits=7, null=True, blank=True)
+
+    def __str__(self):
+        return f'Details of {self.product.name}'
