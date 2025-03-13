@@ -62,6 +62,7 @@ class Order(models.Model):
         ordering = ['-order_date']
         get_latest_by = ['order_date']
 
+
 class Product(models.Model):
     name = models.CharField(max_length=100)
     category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name='products')
