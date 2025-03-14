@@ -11,3 +11,5 @@ class ProductDetailView(viewsets.ModelViewSet):
         if self.request.method == 'GET':
             return CustomerSerializer
         return CustomerCreateUpdateSerializer
+
+    filter_backends = ['first_name', 'last_name']
