@@ -1,9 +1,0 @@
-__pycache__
-.idea
-.env
-.venv
-db.sqlite3
-*.log
-*.pot
-*.pyc
-.DS_Store
