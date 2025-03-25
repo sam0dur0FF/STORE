@@ -11,3 +11,5 @@ class ProductDetailView(viewsets.ModelViewSet):
         if self.request.method in ('GET', 'PUT', 'PATCH'):
             return ProductDetailCreateUpdateSerializer
         return ProductDetailSerializer
+
+
