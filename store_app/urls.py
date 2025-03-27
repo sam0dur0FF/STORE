@@ -8,6 +8,7 @@ from store_app.views.order_items import OrderItemViewSet
 from store_app.views.product_detail_views import ProductDetailView
 from store_app.views.products import ProductViewSet
 from store_app.views.supplier_views import SupplierViewSet
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 router = DefaultRouter()
 router.register(r'categories', CategoryView)
@@ -21,5 +22,9 @@ router.register(r'suppliers', SupplierViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('token-get/', TokenObtainPairView.as_view(), name='get_token'),
+    path('token-update/', TokenRefreshView.as_view(), name='update_token'),
+
+
 ]
 
