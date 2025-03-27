@@ -64,7 +64,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'order_date',
-        'customer',
+        'user',
     )
     search_fields = (
         'customer__first_name',

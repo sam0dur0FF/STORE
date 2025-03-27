@@ -1,12 +1,15 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 class Order(models.Model):
     order_date = models.DateTimeField(auto_now_add=True)
-    customer = models.ForeignKey('Customer', on_delete=models.PROTECT, related_name='orders')
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='orders', null=True, blank=True)
+
 
     def __str__(self):
-        return f"{self.id} by {self.customer}"
+        return f"{self.id} by {self.user}"
 
     class Meta:
         ordering = ['-order_date']
