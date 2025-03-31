@@ -7,7 +7,7 @@ from store_app.serializers import OrderSerializer, OrderCreateUpdateSerializer
 
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
-    pagination_class = [IsCustomerOrReadOnly]
+    permission_classes = (IsCustomerOrReadOnly,)
 
     def get_serializer_class(self):
         if self.action in ['list', 'retrieve']:
