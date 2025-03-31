@@ -44,7 +44,6 @@ class Supplier(models.Model):
 
 
 class Address(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, default=None)
     country = models.CharField(max_length=100)
     city = models.CharField(max_length=50)
     street = models.CharField(max_length=50)
