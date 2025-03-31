@@ -1,5 +1,6 @@
 from .models import *
 from rest_framework import serializers
+from django.contrib.auth import get_user_model
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -50,16 +51,16 @@ class AddressSerializer(serializers.ModelSerializer):
 
 
 class CustomerSerializer(serializers.ModelSerializer):
-    address = AddressSerializer(read_only=True)
-
     class Meta:
-        model = Customer
-        fields = '__all__'
-        read_only_fields = [
-            'date_joined',
-            'deleted',
-            'deleted_at',
+        model = get_user_model()
+        fields = [
+            'username',
+            'first_name',
+            'last_name',
+            "email",
+            'is_active',
         ]
+
 
 
 class CustomerCreateUpdateSerializer(serializers.ModelSerializer):
