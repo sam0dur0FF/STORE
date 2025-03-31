@@ -7,3 +7,8 @@ class IsCustomerOrReadOnly(BasePermission):
         if request.method in ["HEAD", "OPTIONS", "GET"]:
             return True
         return obj.customer == request.user
+
+
+class CanViewStatisticsPermission(BasePermission):
+    def has_permission(self, request, view):
+        return request.user.has_perm("store_app.can_view_statistics")
