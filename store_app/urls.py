@@ -8,6 +8,7 @@ from store_app.views.order_items import OrderItemViewSet
 from store_app.views.product_detail_views import ProductDetailView
 from store_app.views.products import ProductViewSet
 from store_app.views.supplier_views import SupplierViewSet
+from store_app.views.user_orders import UserOrdersViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 router = DefaultRouter()
