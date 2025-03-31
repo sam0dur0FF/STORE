@@ -22,7 +22,7 @@ router.register(r'suppliers', SupplierViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-
+    path('my_orders/', UserOrdersViewSet.as_view(), name="my_orders"),
     path('token-get/', TokenObtainPairView.as_view(), name='get_token'),
     path('token-update/', TokenRefreshView.as_view(), name='update_token'),
 ]
